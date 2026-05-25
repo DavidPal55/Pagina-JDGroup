@@ -655,8 +655,8 @@ h2 em {
 }
 
 .testi-grid {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-top: 3.5rem;
 }
@@ -870,14 +870,192 @@ h2 em {
     background: var(--mustard-lt);
 }
 
-.form-ok {
-    display: none;
+.form-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.btn-arrow {
+    transition: transform .25s;
+    font-size: 1.1rem;
+}
+
+.form-btn:hover .btn-arrow {
+    transform: translateX(4px);
+}
+
+/* ── CALCULATOR CARD ── */
+.calc-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.calc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--mustard), var(--mustard-lt), var(--mustard-pale));
+}
+
+.calc-header {
     text-align: center;
-    padding: 1rem;
-    background: rgba(184, 146, 42, 0.1);
-    border: 1px solid rgba(184, 146, 42, 0.25);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.calc-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+}
+
+.calc-title {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+}
+
+.calc-subtitle {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.06em;
+}
+
+/* ── CALC RESULT ── */
+.calc-result {
+    display: none;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    background: rgba(184, 146, 42, 0.08);
+    border: 1px solid rgba(184, 146, 42, 0.2);
+    animation: resultReveal .5s ease forwards;
+}
+
+.calc-result.show {
+    display: block;
+}
+
+@keyframes resultReveal {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+}
+
+.result-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: var(--mustard-lt);
-    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.result-badge {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.25rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-price {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--mustard-lt);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.result-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 1rem;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+}
+
+.breakdown-label {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+.breakdown-value {
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+}
+
+.result-note {
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 1.2rem;
+}
+
+.result-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.9rem;
+    background: #25D366;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+}
+
+.result-cta:hover {
+    background: #20bd5a;
+    transform: translateY(-1px);
+}
+
+/* Error shake */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+
+.field.error select,
+.field.error input {
+    border-color: #e74c3c !important;
+    animation: shake .35s ease;
 }
 
 /* ── FOOTER ── */
