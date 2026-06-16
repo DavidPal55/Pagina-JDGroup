@@ -39,19 +39,17 @@ document.getElementById('mainForm').addEventListener('submit', function (e) {
     if (!sqInput.value || sqInput.value <= 0) { sqInput.closest('.field').classList.add('error'); hasError = true; }
     if (hasError) return;
 
-    const precioPorLitro = parseFloat(paintSelect.value);
-    const multiplicadorTrabajo = parseFloat(workSelect.value);
-    const metros = parseFloat(sqInput.value);
+    const precioPorLitro = parseFloat(paintSelect.value); // valor de la marca de pintura x litro
+    const multiplicadorTrabajo = parseFloat(workSelect.value); // valor de la mano de obra
+    const metros = parseFloat(sqInput.value); // metros cuadrados elegidos
 
     // Fórmula: ~0.15 litros por m² (rendimiento promedio), 2 manos
-    const litrosPorM2 = 0.15;
-    const manos = 2;
-    const litrosNecesarios = metros * litrosPorM2 * manos;
+    const litrosPorM2 = 4;
+    const litrosNecesarios = metros / litrosPorM2;
     const costoMaterial = litrosNecesarios * precioPorLitro;
 
     // Mano de obra base: $2500/m² (modificable)
-    const manoDeObraBase = 2500;
-    const costoManoDeObra = metros * manoDeObraBase * multiplicadorTrabajo;
+    const costoManoDeObra = metros * multiplicadorTrabajo;
 
     const total = costoMaterial + costoManoDeObra;
 
@@ -73,7 +71,6 @@ document.getElementById('mainForm').addEventListener('submit', function (e) {
         </div>
         <div class="breakdown-row">
             <span class="breakdown-label">${fmt(litrosNecesarios)} litros × $${fmt(precioPorLitro)}/lt</span>
-            <span class="breakdown-value">${manos} manos</span>
         </div>
         <div class="breakdown-row">
             <span class="breakdown-label">Mano de obra (${trabajoLabel})</span>
